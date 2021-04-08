@@ -20,15 +20,15 @@ public class RegistrationSteps {
 		String projectPath=System.getProperty("user.dir");
 		System.out.println("project path is"+projectPath);
 
-		System.setProperty("webdriver.chrome.driver", projectPath+"/src/test/resources/drivers/chromedriver.exe");
+		System.setProperty("webdriver.chrome.driver", projectPath+"/src/test/resources/driver/chromedriver.exe");
 		driver =new ChromeDriver();
-		driver.manage().timeouts().implicitlyWait(30,TimeUnit.SECONDS);
-		driver.manage().timeouts().pageLoadTimeout(30,TimeUnit.SECONDS);
+		
 
 	}
 	@When("user is on registration page")
 	public void user_is_on_registration_page() {
 		driver.navigate().to("https://login.mailchimp.com/signup/");
+		
 	}
 	@Then("^user enters (.*) (.*) and (.*)$")
 	public void user_enters_email_username_and_password(String email, String username, String password) {
@@ -39,13 +39,18 @@ public class RegistrationSteps {
 	}
 
 	@And("click on sign up button")
-	public void click_on_sign_up_button(){
+	public void click_on_sign_up_button() throws InterruptedException{
+		Thread.sleep(2000);
+		
 		driver.findElement(By.id("create-account")).click();
+
+		
 	}
 
 	@Then("user is navigated to the check email page")
-	public void user_is_navigated_to_the_check_email_page() {
-		driver.findElement(By.id("content")).isDisplayed();
+	public void user_is_navigated_to_the_check_email_page() throws InterruptedException {
+		Thread.sleep(2000);
+		
 		driver.close();
 		driver.quit();
 	}
